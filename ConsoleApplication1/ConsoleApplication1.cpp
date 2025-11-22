@@ -6,7 +6,7 @@ Semest 1 Grupa D2
 2. Patryk Podleżyński
 3. Kacper Łosicki
 4. Dawid Płachta
-5.
+5. Krzysiek Kramarski
 
 
 */
