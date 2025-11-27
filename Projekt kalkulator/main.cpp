@@ -2,10 +2,10 @@
 Projekt kalkulatora konsolowego w C++
 
 Semest 1 Grupa D2
-1. Cezary Ma≥gorzaciak
-2. Patryk PodleøyÒski
-3. Kacper £osicki
-4. Dawid P≥achta
+1. Cezary Ma≈Çgorzaciak
+2. Patryk Podle≈ºy≈Ñski
+3. Kacper ≈Åosicki
+4. Dawid P≈Çachta
 5. Krzysiek Kramarski
 
 
@@ -23,12 +23,12 @@ using namespace std;
 void waitEnter() {//Do pauzowania programu
     cout << "\nPress [Enter] to continue...";
     cin.get();
-	cin.clear();// czyúci b≥πd strumienia jeúli wystπpi≥ np. jak ktoú przypadkiem cokolwiek napisze zamiast tylko wcisnπÊ enter
+	cin.clear();// czy≈õci b≈ÇƒÖd strumienia je≈õli wystƒÖpi≈Ç np. jak kto≈õ przypadkiem cokolwiek napisze zamiast tylko wcisnƒÖƒá enter
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 
 }
-void clearout() {//Ta funkcja odpowiedzialna jest za sprawdzenie systemu na jakim jest uøywany program i umoøliwiÊ czyszczenie terminala.
-	//Doda≥em to ze wzglÍdu pisania na poczπtku kodu na Mac'u a potem testowanie na Windowsie
+void clearout() {//Ta funkcja odpowiedzialna jest za sprawdzenie systemu na jakim jest u≈ºywany program i umo≈ºliwiƒá czyszczenie terminala.
+	//Doda≈Çem to ze wzglƒôdu pisania na poczƒÖtku kodu na Mac'u a potem testowanie na Windowsie
 #if defined(_WIN32) || defined(_WIN64)
     system("cls");
 #else
@@ -40,23 +40,19 @@ void showmenu() {//Pokazuje menu kalkulatora !!!To do zmiany w formatowanie tabe
     cout << "Choose from menu:" << endl;
     cout << "1. Addition" << endl;//dodawanie
 	cout << "2. Substract" << endl;//odejmowanie
-	cout << "3. Multiplication" << endl;//mnoøenie
+	cout << "3. Multiplication" << endl;//mno≈ºenie
 	cout << "4. Division" << endl;//dzielenie
-	cout << "5. Exponentiation" << endl;//potÍgowanie
+	cout << "5. Exponentiation" << endl;//potƒôgowanie
 	cout << "6. Root" << endl;//pierwiastkowanie
-	cout << "7. Pi constant" << endl;//sta≥a pi
-	cout << "8. Euler's number" << endl;//sta≥a e
-    cout << "9. Sinus" << endl;//obliczanie sinusa
-	cout << "10. Cosinus" << endl;//obliczanie cosinusa
-	cout << "11. Tanges" << endl;//obliczanie tangensa
-	cout << "12. Cotanges" << endl;//obliczanie cotangensa
+	cout << "7. Pi constant" << endl;//sta≈Ça pi
+	cout << "8. Euler's number" << endl;//sta≈Ça e
     cout << "0. Exit" << endl;
 }
 
 
 int main() {
-	setlocale(LC_ALL, "");//Ustawienie lokalizacji na polskπ øeby obs≥ugiwaÊ polskie znaki
-    while (true) {// PÍtla do ciπg≥ego dzia≥ania programu
+	setlocale(LC_ALL, "");//Ustawienie lokalizacji na polskƒÖ ≈ºeby obs≈Çugiwaƒá polskie znaki
+    while (true) {// Pƒôtla do ciƒÖg≈Çego dzia≈Çania programu
         clearout();
         showmenu();
         string choice;
@@ -64,34 +60,34 @@ int main() {
         cin >> choice;
 
 
-        if (choice == "0") {//Wyjúcie z programu
+        if (choice == "0") {//Wyj≈õcie z programu
             clearout();
             cout << "See you next time!" << endl;
-            this_thread::sleep_for(chrono::seconds(2));// tu czeka program 3 sekundy zanim zamknie siÍ po wyúwietleniu wiadomoúci [moøemy to zmieniÊ]
+            this_thread::sleep_for(chrono::seconds(2));// tu czeka program 3 sekundy zanim zamknie siƒô po wy≈õwietleniu wiadomo≈õci [mo≈ºemy to zmieniƒá]
             return 0;
         }
 
 
-        else if (choice == "1" || choice == "2" || choice == "3" || choice == "4") {//WspÛlny if bo na tych samych podanych liczbach moøe dzia≥aÊ
-            long double a = 0.0L, b = 0.0L;// to inicjalizacja a i b za kaødym razem øeby nie przenios≥o z porzednich dzia≥aÒ
+        else if (choice == "1" || choice == "2" || choice == "3" || choice == "4") {//Wsp√≥lny if bo na tych samych podanych liczbach mo≈ºe dzia≈Çaƒá
+            long double a = 0.0L, b = 0.0L;// to inicjalizacja a i b za ka≈ºdym razem ≈ºeby nie przenios≈Ço z porzednich dzia≈Ça≈Ñ
             long double result = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "Input b: "; cin >> b;
-            if (choice == "1") {//tu napisaÊ dodawanie
-                cout << "DOKO—CZY∆ KODOWANIE" << endl;
-                result = a + b;// chwilowo doda≥em w ten sposÛb ale chyba bym zmieni≥ na funkcjÍ wywo≥ywanπ
+            if (choice == "1") {//tu napisaƒá dodawanie
+                cout << "DOKO≈ÉCZYƒÜ KODOWANIE" << endl;
+                result = a + b;// chwilowo doda≈Çem w ten spos√≥b ale chyba bym zmieni≈Ç na funkcjƒô wywo≈ÇywanƒÖ
                 cout << result;
             }
             else if (choice == "2") {//tu odejmowanie
-                cout << "DOKO—CZY∆ KODOWANIE" << endl;
+                cout << "DOKO≈ÉCZYƒÜ KODOWANIE" << endl;
                 cout << result;
             }
-            else if (choice == "3") {//tu mnoøenie
-                cout << "DOKO—CZY∆ KODOWANIE" << endl;
+            else if (choice == "3") {//tu mno≈ºenie
+                cout << "DOKO≈ÉCZYƒÜ KODOWANIE" << endl;
                 cout << result;
             }
             else if (choice == "4") {//tu dzielenie
-                cout << "DOKO—CZY∆ KODOWANIE" << endl;//Tu wypada≥oby dodaÊ sprawdzanie øeby nieprzyjmowa≥o 0
+                cout << "DOKO≈ÉCZYƒÜ KODOWANIE" << endl;//Tu wypada≈Çoby dodaƒá sprawdzanie ≈ºeby nieprzyjmowa≈Ço 0
                 cout << result;
             }
             waitEnter();
@@ -99,67 +95,35 @@ int main() {
         }
 
         else if (choice == "5") {
-            long double a = 0.0L, b = 0.0L;// to inicjalizacja a i b za kaødym razem øeby nie przenios≥o z porzednich dzia≥aÒ
+            long double a = 0.0L, b = 0.0L;// to inicjalizacja a i b za ka≈ºdym razem ≈ºeby nie przenios≈Ço z porzednich dzia≈Ça≈Ñ
             cout << "Input a: "; cin >> a;
             cout << "To the power of: "; cin >> b;
-            //Tu napisaÊ potÍgowanie
-            cout << "DOKO—CZY∆ KODOWANIE" << endl;
+            //Tu napisaƒá potƒôgowanie
+            cout << "DOKO≈ÉCZYƒÜ KODOWANIE" << endl;
             waitEnter();
         }
 
         else if (choice == "6") {
             long double a = 0.0L, n = 2.0L;//n=2 bo podstawowym pierwiastkiem jest kwadratowy
-            // to inicjalizacja a i b za kaødym razem øeby nie przenios≥o z porzednich dzia≥aÒ
+            // to inicjalizacja a i b za ka≈ºdym razem ≈ºeby nie przenios≈Ço z porzednich dzia≈Ça≈Ñ
             cout << "Input a: "; cin >> a;
             cout << "N of root: "; cin >> n;
-            cout << "DOKO—CZY∆ KODOWANIE" << endl;
+            cout << "DOKO≈ÉCZYƒÜ KODOWANIE" << endl;
             waitEnter();
 
         }
 
         else if (choice == "7") {
-            cout << "DOKO—CZY∆ KODOWANIE" << endl;// tu obliczanie pi [goúciu mÛwi≥ o 10 miejscu po przecinku to bym zrobi≥ do 15 chyba]
+            cout << "DOKO≈ÉCZYƒÜ KODOWANIE" << endl;// tu obliczanie pi [go≈õciu m√≥wi≈Ç o 10 miejscu po przecinku to bym zrobi≈Ç do 15 chyba]
             waitEnter();
         }
 
         else if (choice == "8") {
-            cout << "DOKO—CZY∆ KODOWANIE" << endl; // tu obliczanie e [e bym tak samo 15 po przecinku]
-            waitEnter();
-        }
-        else if (choice == "9") {
-            long double a = 0.0L, b = 0.0L;// to inicjalizacja a i b za kaødym razem øeby nie przenios≥o z porzednich dzia≥aÒ
-            long double result = 0.0L;
-            cout << "Input a: "; cin >> a;
-            cout << "Input b: "; cin >> b;
-            cout << "DOKO—CZY∆ KODOWANIE" << endl; // tu obliczanie sinus
-            waitEnter();
-        }
-        else if (choice == "10") {
-            long double a = 0.0L, b = 0.0L;// to inicjalizacja a i b za kaødym razem øeby nie przenios≥o z porzednich dzia≥aÒ
-            long double result = 0.0L;
-            cout << "Input a: "; cin >> a;
-            cout << "Input b: "; cin >> b;
-            cout << "DOKO—CZY∆ KODOWANIE" << endl; // tu obliczanie cosiuns
-            waitEnter();
-        }
-        else if (choice == "11") {
-            long double a = 0.0L, b = 0.0L;// to inicjalizacja a i b za kaødym razem øeby nie przenios≥o z porzednich dzia≥aÒ
-            long double result = 0.0L;
-            cout << "Input a: "; cin >> a;
-            cout << "Input b: "; cin >> b;
-            cout << "DOKO—CZY∆ KODOWANIE" << endl; // tu obliczanie tanges
-            waitEnter();
-        }
-        else if (choice == "12") {
-            long double a = 0.0L, b = 0.0L;// to inicjalizacja a i b za kaødym razem øeby nie przenios≥o z porzednich dzia≥aÒ
-            long double result = 0.0L;
-            cout << "Input a: "; cin >> a;
-            cout << "Input b: "; cin >> b;
-            cout << "DOKO—CZY∆ KODOWANIE" << endl; // tu obliczanie cotanges
+            cout << "DOKO≈ÉCZYƒÜ KODOWANIE" << endl; // tu obliczanie e [e bym tak samo 15 po przecinku]
             waitEnter();
         }
         else {
-            cout << "Unnknown choice. Input 0-12." << endl;//Tu oczywiste zwrÛcenie informacji o b≥Ídnym wyborze z menu
+            cout << "Unnknown choice. Input 0-8." << endl;//Tu oczywiste zwr√≥cenie informacji o b≈Çƒôdnym wyborze z menu
             waitEnter();
         }
 
