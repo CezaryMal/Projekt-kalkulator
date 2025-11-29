@@ -11,7 +11,6 @@ Semest 1 Grupa D2
 
 */
 
-
 #include <iostream>
 #include <cstdlib>
 #include <chrono>
@@ -21,64 +20,12 @@ Semest 1 Grupa D2
 #include <iomanip>
 #include <string>
 #include <sstream>
+#include "ui_format.h"
+#include "calc.h"
+
+
 
 using namespace std;
-
-string formatNumber(long double value) {// Funkcja formatująca liczbę zmiennoprzecinkową do stringa z usuniętymi nadmiarowymi zerami i zaogrąglaniem
-    constexpr int kFractionDigits = 12;// liczba cyfr po przecinku
-    const long double scale = powl(10.0L, static_cast<long double>(kFractionDigits));// skala do zaokrąglania
-    long double rounded = roundl(value * scale) / scale;// zaokrąglanie liczby
-
-    ostringstream oss;// strumień do konwersji na string
-    oss << fixed << setprecision(kFractionDigits) << rounded;// ustawienie formatu i precyzji
-    string out = oss.str();// konwersja strumienia na string
-    size_t pos = out.find_last_not_of('0');// znajdź ostatnią cyfrę nie będącą zerem
-    if (pos == string::npos) {// jeśli wszystkie są zerami
-        return "0";
-    }
-    if (out[pos] == '.') {// jeśli ostatnia niezerowa cyfra to kropka dziesiętna
-        pos--;// cofamy się o jeden znak
-    }
-    out.erase(pos + 1);// usuwamy nadmiarowe zera
-    if (out == "-0") {// obsługa przypadku -0
-        out = "0";// zamiana na 0
-    }
-    return out;// zwracamy sformatowany string
-}
-
-
-void waitEnter() {//Do pauzowania programu
-    cout << "\nPress [Enter] to continue...";
-    cin.get();
-	cin.clear();// czyści błąd strumienia jeśli wystąpił np. jak ktoś przypadkiem cokolwiek napisze zamiast tylko wcisnąć enter
-    cin.ignore(numeric_limits<streamsize>::max(), '\n');
-
-}
-void clearout() {//Ta funkcja odpowiedzialna jest za sprawdzenie systemu na jakim jest używany program i umożliwić czyszczenie terminala.
-	//Dodałem to ze względu pisania na początku kodu na Mac'u a potem testowanie na Windowsie
-#if defined(_WIN32) || defined(_WIN64)
-    system("cls");
-#else
-    system("clear");
-#endif
-}
-
-void showmenu() {//Pokazuje menu kalkulatora !!!To do zmiany w formatowanie tabeli
-    cout << "Choose from menu:" << endl;
-    cout << "1. Addition" << endl; // dodawanie
-    cout << "2. Substract" << endl; // odejmowanie
-    cout << "3. Multiplication" << endl; // mnożenie
-    cout << "4. Division" << endl; // dzielenie
-    cout << "5. Exponentiation" << endl; // potęgowanie
-    cout << "6. Root" << endl; // pierwiastkowanie
-    cout << "7. Pi constant" << endl; // stała pi
-    cout << "8. Euler's number" << endl; // stała e
-    cout << "9. Sine (sin)" << endl; // sinus
-    cout << "10. Cosine (cos)" << endl; // cosinus
-    cout << "11. Tangent (tan)" << endl; // tangens
-    cout << "12. Cotangent (cot)" << endl; // cotangens
-    cout << "0. Exit" << endl; // wyjście z programu
-}
 
 
 int main() {
@@ -86,7 +33,24 @@ int main() {
 	setlocale(LC_ALL, "");//Ustawienie lokalizacji na polską żeby obsługiwać polskie znaki
     while (true) {// Pętla do ciągłego działania programu
         clearout(); // czyścimy ekran przed pokazaniem menu
-        showmenu(); // wyświetlamy menu
+        showmenu(
+            {
+                {1, "Addition"},
+                {2, "Substraction"},
+                {3, "Multiplication"},
+                {4, "Division"},
+                {5, "Exponentiation"},
+                {6, "Root"},
+                {7, "Pi constant"},
+                {8, "Euler's number"},
+                {9, "Sine"},
+                {10, "Cosine"},
+                {11, "Tangent"},
+                {12, "Cotangent"},
+                {0, "Exit"}
+            },
+            "Console Calculator"
+        ); // wyświetlamy menu
         string choice;
         cout << "Input your choice: ";
         cin >> choice; // czytamy wybór użytkownika jako tekst (pozwala na 10,11,12)
