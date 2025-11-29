@@ -59,7 +59,7 @@ void showmenu() {//Pokazuje menu kalkulatora !!!To do zmiany w formatowanie tabe
 
 
 int main() {
-	//setlocale(LC_ALL, "");//Ustawienie lokalizacji na polską żeby obsługiwać polskie znaki
+	setlocale(LC_ALL, "");//Ustawienie lokalizacji na polską żeby obsługiwać polskie znaki
     while (true) {// Pętla do ciągłego działania programu
         clearout(); // czyścimy ekran przed pokazaniem menu
         showmenu(); // wyświetlamy menu
@@ -74,6 +74,7 @@ int main() {
         for (char ch : choice) if (!isdigit(static_cast<unsigned char>(ch))) ok = false;//sprawdzamy czy każda cyfra jest cyfrą
         if (!ok) {
             // Nieprawidłowy format wyboru (np. litery) — prosimy o ponowny wybór
+            cout << "ERROR!" << endl;
             cout << "Unknown choice. Input 0-12." << endl;
             waitEnter();
             continue;
@@ -81,6 +82,7 @@ int main() {
         try {
             opt = stoi(choice); // konwersja na int
         } catch (...) {// obsługa wyjątków na wypadek bardzo dużych liczb
+            cout << "ERROR!" << endl;
             cout << "Unknown choice. Input 0-12." << endl;
             waitEnter();
             continue;
@@ -95,78 +97,129 @@ int main() {
             this_thread::sleep_for(chrono::seconds(2));
             return 0;
 
-        case 1:
-        case 2:
-        case 3:
-        case 4: {
+        case 1:{//Dodawanie
+            clearout();
+            cout<<"Addition"<<endl;
             long double a = 0.0L, b = 0.0L;
             long double result = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "Input b: "; cin >> b;
-            switch (opt) {
-            case 1://Dodawanie
-                cout << "DOKOŃCZYĆ KODOWANIE" << endl;
-                result = a + b;
-                cout << result;
-                break;
-            case 2://Odejmowanie
-                cout << "DOKOŃCZYĆ KODOWANIE" << endl;
-                cout << result;
-                break;
-            case 3://Mnożenie
-                cout << "DOKOŃCZYĆ KODOWANIE" << endl;
-                cout << result;
-                break;
-            case 4://Dzielenie
-                // Dzielenie: sprawdzamy czy nie dzielimy przez zero, jeśli OK obliczamy wynik
-                if (fabsl(b) < 1e-18L) {
-                    // b (mianownik) jest praktycznie zerem -> wyświetlamy błąd
-                    cout << "Error: division by zero is not allowed." << endl;
-                } else {
-                    cout << "DOKOŃCZYĆ KODOWANIE" << endl;
-                    waitEnter();
-                }
-                break;
-            }
+            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
+            result = a + b;
+            cout << a << "+" << b << "=" << result << endl;
             waitEnter();
             break;
         }
+        case 2:{
+            clearout();
+            cout<<"Substraction"<<endl;
+            long double a = 0.0L, b = 0.0L;
+            long double result = 0.0L;
+            cout << "Input a: "; cin >> a;
+            cout << "Input b: "; cin >> b;
+            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
+            result = a - b;
+            cout << a << "-" << b << "=" << result << endl;
+            waitEnter();
+            break;
+        }
+        case 3:{
+            clearout();
+            cout<<"Multiplication"<<endl;
+            long double a = 0.0L, b = 0.0L;
+            long double result = 0.0L;
+            cout << "Input a: "; cin >> a;
+            cout << "Input b: "; cin >> b;
+            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
+            result = a * b;
+            cout << a << "*" << b << "=" << result << endl;
+            waitEnter();
+            break;
+        }
+        case 4: { // Dzielenie: sprawdzamy czy nie dzielimy przez zero, jeśli OK obliczamy wynik
+            clearout();
+            cout << "Division" << endl;
+            long double a = 0.0L, b = 0.0L;
+            long double result = 0.0L;
+            cout << "Input a (numerator): "; cin >> a;
+            cout << "Input b (denominator): "; cin >> b;
+
+               
+            if (fabsl(b) < 1e-18L) {
+                // b (mianownik) jest praktycznie zerem -> wyświetlamy błąd
+                cout << "Error: division by zero is not allowed." << endl;
+            } else {
+                result = a / b;
+                cout << a << " / " << b << " = " << result << endl;
+                cout << "DOKOŃCZYĆ KODOWANIE" << endl;
+                waitEnter();
+            }
+            break;
+        }
+        waitEnter();
+        break;
+        
 
         case 5: {//Potęgowanie
+            clearout();
+            cout << "Exponentiation" << endl;
             long double a = 0.0L, b = 0.0L;
+            long double result = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "To the power of: "; cin >> b;
+            result = powl(a, b);
+            cout << a << " ^ " << b << " = " << result << endl;
             cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
         }
 
         case 6: {//Pierwiastkowanie
+            clearout();
+            cout << "Root" << endl;
             long double a = 0.0L, n = 2.0L;
+            long double result = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "N of root: "; cin >> n;
+            result = powl(a, 1.0L / n);
+            cout << n << " root of " << a << " = " << result << endl;
             cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
         }
 
-        case 7://Pi
+        case 7:{//Pi
+            clearout();
+            cout << "Pi constant" << endl;
+            long double Pi = 3.14L;//tu dodać obliczenie pi
+            cout<< "Pi = "<< Pi << endl;
             cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
+        }
 
-        case 8://E
+        case 8:{//E
+            clearout();
+            cout << "Euler's number" << endl;
+            long double E = 2.71L;//tu dodać obliczenie e
+            cout<< "e = "<< E << endl;
             cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
+        }
 
         case 9: {//Sinus
+            clearout();
+            cout << "Sine" << endl;
             long double opposite = 0.0L, hypotenuse = 0.0L;
+            long double result = 0.0L;
             cout << "Input Opposite: "; cin >> opposite; // przeciwległy bok
             cout << "Input Hypotenuse: "; cin >> hypotenuse; // przeciwprostokątna
             if (fabsl(hypotenuse) < 1e-18L) {//sprawdzamy czy nie dzielimy przez 0
                 cout << "Error: hypotenuse cannot be zero." << endl;
             } else {
+                result = opposite / hypotenuse;
+                cout << "sin = " << result << endl;
                 cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
@@ -174,12 +227,17 @@ int main() {
         }
 
         case 10: {//Cosinus
+            clearout();
+            cout << "Cosine" << endl;
             long double adjacent = 0.0L, hypotenuse = 0.0L;
+            long double result = 0.0L;
             cout << "Input Adjacent: "; cin >> adjacent; // bok przyległy
             cout << "Input Hypotenuse: "; cin >> hypotenuse; // przeciwprostokątna
             if (fabsl(hypotenuse) < 1e-18L) {//sprawdzamy czy nie dzielimy przez 0
                 cout << "Error: hypotenuse cannot be zero." << endl;
             } else {
+                result = adjacent / hypotenuse;
+                cout << "cos = " << result << endl;
                 cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
@@ -187,12 +245,17 @@ int main() {
         }
 
         case 11: {//Tangens
+            clearout();
+            cout << "Tangent" << endl;
             long double opposite = 0.0L, adjacent = 0.0L;
+            long double result = 0.0L;
             cout << "Input Opposite: "; cin >> opposite; // przeciwległy bok
             cout << "Input Adjacent: "; cin >> adjacent; // bok przyległy
             if (fabsl(adjacent) < 1e-18L) {//sprawdzamy czy nie dzielimy przez 0
                 cout << "Error: adjacent cannot be zero." << endl;
             } else {
+                result = opposite / adjacent;
+                cout << "tan = " << result << endl;
                 cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
@@ -200,12 +263,17 @@ int main() {
         }
 
         case 12: {//Cotangens
+            clearout();
+            cout << "Cotangent" << endl;
             long double adjacent = 0.0L, opposite = 0.0L;
+            long double result = 0.0L;
             cout << "Input Adjacent: "; cin >> adjacent; // bok przyległy
             cout << "Input Opposite: "; cin >> opposite; // przeciwległy bok
             if (fabsl(opposite) < 1e-18L) {//sprawdzanie czy nie dzielimy przez 0
                 cout << "Error: opposite cannot be zero." << endl;
             } else {
+                result = adjacent / opposite;
+                cout << "cot = " << result << endl;
                 cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
@@ -213,6 +281,8 @@ int main() {
         }
 
         default://Nieznany wybór
+            clearout();
+            cout << "ERROR!" << endl;
             cout << "Unknown choice. Input 0-12." << endl;
             waitEnter();
             break;
