@@ -70,8 +70,8 @@ int main() {
         int opt = -1;
         // Parsowanie wyboru: akceptujemy wielocyfrowe liczby (np. 10, 11, 12).
         bool ok = true;
-        if (choice.empty()) ok = false;
-        for (char ch : choice) if (!isdigit(static_cast<unsigned char>(ch))) ok = false;
+        if (choice.empty()) ok = false;//sprawdzamy czy nie jest puste
+        for (char ch : choice) if (!isdigit(static_cast<unsigned char>(ch))) ok = false;//sprawdzamy czy każda cyfra jest cyfrą
         if (!ok) {
             // Nieprawidłowy format wyboru (np. litery) — prosimy o ponowny wybór
             cout << "Unknown choice. Input 0-12." << endl;
@@ -80,7 +80,7 @@ int main() {
         }
         try {
             opt = stoi(choice); // konwersja na int
-        } catch (...) {
+        } catch (...) {// obsługa wyjątków na wypadek bardzo dużych liczb
             cout << "Unknown choice. Input 0-12." << endl;
             waitEnter();
             continue;
