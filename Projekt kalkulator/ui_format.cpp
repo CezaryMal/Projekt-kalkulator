@@ -5,6 +5,7 @@
 #include <limits>
 #include <sstream>
 #include <cmath>
+#include <cstdlib>
 #if defined(_WIN32)
 #include <windows.h>
 #undef min
@@ -13,13 +14,19 @@
 using namespace std;
 
 namespace {
+// Wyrownuje przekazany tekst do srodka ramki o okreslonej szerokosci
 string centerText(const string& text, int width) {
-    if (static_cast<int>(text.size()) >= width) return text;
-    int padding = (width - static_cast<int>(text.size())) / 2;
-    return string(static_cast<size_t>(padding), ' ') + text;
+    if (width <= static_cast<int>(text.size())) return text;
+    int totalPadding = width - static_cast<int>(text.size());
+    int leftPadding = totalPadding / 2;
+    int rightPadding = totalPadding - leftPadding;
+    return string(static_cast<size_t>(leftPadding), ' ')
+        + text
+        + string(static_cast<size_t>(rightPadding), ' ');
 }
 }
 
+// Usuwa tresc konsoli w zaleznosci od systemu operacyjnego
 void clearout() {
 #if defined(_WIN32) || defined(_WIN64)
     system("cls");
@@ -28,6 +35,7 @@ void clearout() {
 #endif
 }
 
+// Informuje uzytkownika o pauzie i czeka na wcisniecie Enter
 void waitEnter() {
     cout << "\nPress [Enter] to continue...";
     cin.get();
@@ -35,6 +43,7 @@ void waitEnter() {
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
 }
 
+// Wyswietla tablice elementow menu wraz z tytulem w ozdobnej ramce
 void showmenu(const vector<MenuItem>& items, const string& title) {
     constexpr int width = 40;
     const string border(width, '-');
@@ -43,7 +52,10 @@ void showmenu(const vector<MenuItem>& items, const string& title) {
     cout << '+' << border << "+\n";
     for (const auto& item : items) {
         ostringstream row;
-        row << item.id << ". " << item.label;
+        if (item.displayId) {
+            row << item.id << ". ";
+        }
+        row << item.label;
         cout << "| " << left << setw(width - 2) << row.str() << " |\n";
     }
     cout << '+' << border << "+\n";

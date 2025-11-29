@@ -20,6 +20,7 @@ Semest 1 Grupa D2
 #include <iomanip>
 #include <string>
 #include <sstream>
+#include <clocale>
 #include "ui_format.h"
 #include "calc.h"
 
@@ -62,16 +63,14 @@ int main() {
         for (char ch : choice) if (!isdigit(static_cast<unsigned char>(ch))) ok = false;//sprawdzamy czy każda cyfra jest cyfrą
         if (!ok) {
             // Nieprawidłowy format wyboru (np. litery) — prosimy o ponowny wybór
-            cout << "ERROR!" << endl;
-            cout << "Unknown choice. Input 0-12." << endl;
+            showmenu({{"Unknown choice. Input 0-12."}}, "Error");
             waitEnter();
             continue;
         }
         try {
             opt = stoi(choice); // konwersja na int
         } catch (...) {// obsługa wyjątków na wypadek bardzo dużych liczb
-            cout << "ERROR!" << endl;
-            cout << "Unknown choice. Input 0-12." << endl;
+            showmenu({{"Unknown choice. Input 0-12."}}, "Error");
             waitEnter();
             continue;
         }
@@ -81,44 +80,41 @@ int main() {
         case 0:
             // Wyjście z programu: czyścimy ekran i kończymy działanie.
             clearout();
-            cout << "See you next time!" << endl;
+            showmenu({{"See you next time!"}}, "EXIT");
             this_thread::sleep_for(chrono::seconds(2));
             return 0;
 
         case 1:{//Dodawanie
             clearout();
-            cout<<"Addition"<<endl;
+            showmenu({{"input a + input b"}},"Addition");
             long double a = 0.0L, b = 0.0L;
             long double result = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "Input b: "; cin >> b;
-            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             result = a + b;
             cout << formatNumber(a) << " + " << formatNumber(b) << " = " << formatNumber(result) << endl;
             waitEnter();
             break;
         }
-        case 2:{
+        case 2:{//Odejmowanie
             clearout();
-            cout<<"Substraction"<<endl;
+            showmenu({{"input a - input b"}},"Substraction");
             long double a = 0.0L, b = 0.0L;
             long double result = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "Input b: "; cin >> b;
-            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             result = a - b;
             cout << formatNumber(a) << " - " << formatNumber(b) << " = " << formatNumber(result) << endl;
             waitEnter();
             break;
         }
-        case 3:{
+        case 3:{//Mnożenie
             clearout();
-            cout<<"Multiplication"<<endl;
+            showmenu({{"input a * input b"}},"Multiplication");
             long double a = 0.0L, b = 0.0L;
             long double result = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "Input b: "; cin >> b;
-            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             result = a * b;
             cout << formatNumber(a) << " * " << formatNumber(b) << " = " << formatNumber(result) << endl;//wyświetlanie wyniku
             waitEnter();
@@ -126,7 +122,7 @@ int main() {
         }
         case 4: { // Dzielenie: sprawdzamy czy nie dzielimy przez zero, jeśli OK obliczamy wynik
             clearout();
-            cout << "Division" << endl;
+            showmenu({{"input a / input b"}},"Division");
             long double a = 0.0L, b = 0.0L;
             long double result = 0.0L;
             cout << "Input a (numerator): "; cin >> a;
@@ -139,66 +135,58 @@ int main() {
             } else {
                 result = a / b;
                 cout << formatNumber(a) << " / " << formatNumber(b) << " = " << formatNumber(result) << endl;
-                cout << "DOKOŃCZYĆ KODOWANIE" << endl;
                 waitEnter();
             }
             break;
         }
-        waitEnter();
-        break;
-        
 
         case 5: {//Potęgowanie
             clearout();
-            cout << "Exponentiation" << endl;
+            showmenu({{"input a ^ input b"}},"Exponentiation");
             long double a = 0.0L, b = 0.0L;
             long double result = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "To the power of: "; cin >> b;
             result = powl(a, b);
             cout << formatNumber(a) << " ^ " << formatNumber(b) << " = " << formatNumber(result) << endl;
-            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
         }
 
         case 6: {//Pierwiastkowanie
             clearout();
-            cout << "Root" << endl;
+            showmenu({{"input n root of input a"}},"Root");
             long double a = 0.0L, n = 2.0L;
             long double result = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "N of root: "; cin >> n;
             result = powl(a, 1.0L / n);
             cout << formatNumber(n) << " root of " << formatNumber(a) << " = " << formatNumber(result) << endl;
-            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
         }
 
         case 7:{//Pi
             clearout();
-            cout << "Pi constant" << endl;
+            showmenu({{"Pi constant"}},"Pi constant");
             long double Pi = 3.14L;//tu dodać obliczenie pi
             cout<< "Pi = "<< Pi << endl;
-            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
         }
 
         case 8:{//E
             clearout();
-            cout << "Euler's number" << endl;
+            showmenu({{"Euler's number"}},"Euler's number");
             long double E = 2.71L;//tu dodać obliczenie e
             cout<< "e = "<< E << endl;
-            cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
         }
 
         case 9: {//Sinus
             clearout();
-            cout << "Sine" << endl;
+            showmenu({{"input opposite / input hypotenuse"}},"Sine");
             long double opposite = 0.0L, hypotenuse = 0.0L;
             long double result = 0.0L;
             cout << "Input Opposite: "; cin >> opposite; // przeciwległy bok
@@ -208,7 +196,6 @@ int main() {
             } else {
                 result = opposite / hypotenuse;
                 cout << "sin = " << formatNumber(result) << endl;
-                cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
             break;
@@ -216,7 +203,7 @@ int main() {
 
         case 10: {//Cosinus
             clearout();
-            cout << "Cosine" << endl;
+            showmenu({{"input adjacent / input hypotenuse"}},"Cosine");
             long double adjacent = 0.0L, hypotenuse = 0.0L;
             long double result = 0.0L;
             cout << "Input Adjacent: "; cin >> adjacent; // bok przyległy
@@ -226,7 +213,6 @@ int main() {
             } else {
                 result = adjacent / hypotenuse;
                 cout << "cos = " << formatNumber(result) << endl;
-                cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
             break;
@@ -234,7 +220,7 @@ int main() {
 
         case 11: {//Tangens
             clearout();
-            cout << "Tangent" << endl;
+            showmenu({{"input opposite / input adjacent"}},"Tangent");
             long double opposite = 0.0L, adjacent = 0.0L;
             long double result = 0.0L;
             cout << "Input Opposite: "; cin >> opposite; // przeciwległy bok
@@ -244,7 +230,6 @@ int main() {
             } else {
                 result = opposite / adjacent;
                 cout << "tan = " << formatNumber(result) << endl;
-                cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
             break;
@@ -252,7 +237,7 @@ int main() {
 
         case 12: {//Cotangens
             clearout();
-            cout << "Cotangent" << endl;
+            showmenu({{"input adjacent / input opposite"}},"Cotangent");
             long double adjacent = 0.0L, opposite = 0.0L;
             long double result = 0.0L;
             cout << "Input Adjacent: "; cin >> adjacent; // bok przyległy
@@ -262,7 +247,6 @@ int main() {
             } else {
                 result = adjacent / opposite;
                 cout << "cot = " << formatNumber(result) << endl;
-                cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
             break;
@@ -270,8 +254,7 @@ int main() {
 
         default://Nieznany wybór
             clearout();
-            cout << "ERROR!" << endl;
-            cout << "Unknown choice. Input 0-12." << endl;
+            showmenu({{"Unknown choice. Input 0-12."}}, "Error");
             waitEnter();
             break;
         }

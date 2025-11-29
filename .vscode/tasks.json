@@ -7,12 +7,14 @@
             "args": [
                 "-fdiagnostics-color=always",
                 "-g",
-                "${file}",
+                "${workspaceFolder}\\Projekt kalkulator\\main.cpp",
+                "${workspaceFolder}\\Projekt kalkulator\\calc.cpp",
+                "${workspaceFolder}\\Projekt kalkulator\\ui_format.cpp",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${workspaceFolder}\\Projekt kalkulator\\bin\\Debug\\Projekt kalkulator.exe"
             ],
             "options": {
-                "cwd": "${fileDirname}"
+                "cwd": "${workspaceFolder}\\Projekt kalkulator"
             },
             "problemMatcher": [
                 "$gcc"

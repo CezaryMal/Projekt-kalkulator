@@ -1,13 +1,13 @@
 {
     "configurations": [
         {
-            "name": "C/C++: g++.exe build and debug active file",
+            "name": "Projekt kalkulator",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\Projekt kalkulator\\bin\\Debug\\Projekt kalkulator.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}\\Projekt kalkulator",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",

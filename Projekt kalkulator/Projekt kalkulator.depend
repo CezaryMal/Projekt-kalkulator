@@ -6,7 +6,7 @@
 
 1764419584 c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\calc.h
 
-1764419910 source:c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\main.cpp
+1764425520 source:c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\main.cpp
 	<iostream>
 	<cstdlib>
 	<chrono>
@@ -19,7 +19,16 @@
 	"ui_format.h"
 	"calc.h"
 
-1764419910 c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\ui_format.h
+1764424816 c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\ui_format.h
 	<string>
 	<vector>
+
+1764424814 source:c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\ui_format.cpp
+	"ui_format.h"
+	<iostream>
+	<iomanip>
+	<limits>
+	<sstream>
+	<cmath>
+	<windows.h>
 
