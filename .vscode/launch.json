@@ -1,17 +1,33 @@
 {
     "configurations": [
         {
-            "name": "C/C++: g++.exe build and debug active file",
+            "name": "Launch (POSIX) - macOS/Linux (CodeLLDB)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/Projekt kalkulator/bin/Debug/Projekt kalkulator",
+            "args": [],
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}/Projekt kalkulator",
+            "environment": [],
+            "env": {
+                "TERM": "xterm-256color"
+            },
+            "externalConsole": true,
+            "terminal": "external",
+            "preLaunchTask": "Build (macOS) - g++ (all files)"
+        },
+        {
+            "name": "Launch (Windows) - MinGW",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${fileDirname}\\${fileBasenameNoExtension}.exe",
+            "program": "${workspaceFolder}\\Projekt kalkulator\\bin\\Debug\\Projekt kalkulator.exe",
             "args": [],
             "stopAtEntry": false,
-            "cwd": "${fileDirname}",
+            "cwd": "${workspaceFolder}\\Projekt kalkulator",
             "environment": [],
             "externalConsole": true,
             "MIMode": "gdb",
-            "miDebuggerPath": "C:\\Users\\teamV\\mingw64\\bin\\gdb.exe",
+            "miDebuggerPath": "gdb",
             "setupCommands": [
                 {
                     "description": "Enable pretty-printing for gdb",
@@ -24,8 +40,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: g++.exe build active file"
+            "preLaunchTask": "Build (Windows) - g++ (mingw)"
         }
     ],
-    "version": "2.0.0"
+    "version": "0.2.0"
 }

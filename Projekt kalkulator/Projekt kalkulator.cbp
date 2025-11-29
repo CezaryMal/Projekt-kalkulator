@@ -11,7 +11,9 @@
 				<Option object_output="obj/Debug/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
+					<Add option="-std=c++20" />
 					<Add option="-g" />
 				</Compiler>
 			</Target>
@@ -20,6 +22,7 @@
 				<Option object_output="obj/Release/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
 				<Compiler>
 					<Add option="-O2" />
 				</Compiler>
@@ -32,7 +35,11 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="calc.cpp" />
+		<Unit filename="calc.h" />
 		<Unit filename="main.cpp" />
+		<Unit filename="ui_format.cpp" />
+		<Unit filename="ui_format.h" />
 		<Extensions />
 	</Project>
 </CodeBlocks_project_file>
