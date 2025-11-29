@@ -20,8 +20,31 @@ Semest 1 Grupa D2
 #include <cmath>
 #include <iomanip>
 #include <string>
+#include <sstream>
 
 using namespace std;
+
+string formatNumber(long double value) {// Funkcja formatująca liczbę zmiennoprzecinkową do stringa z usuniętymi nadmiarowymi zerami i zaogrąglaniem
+    constexpr int kFractionDigits = 12;// liczba cyfr po przecinku
+    const long double scale = powl(10.0L, static_cast<long double>(kFractionDigits));// skala do zaokrąglania
+    long double rounded = roundl(value * scale) / scale;// zaokrąglanie liczby
+
+    ostringstream oss;// strumień do konwersji na string
+    oss << fixed << setprecision(kFractionDigits) << rounded;// ustawienie formatu i precyzji
+    string out = oss.str();// konwersja strumienia na string
+    size_t pos = out.find_last_not_of('0');// znajdź ostatnią cyfrę nie będącą zerem
+    if (pos == string::npos) {// jeśli wszystkie są zerami
+        return "0";
+    }
+    if (out[pos] == '.') {// jeśli ostatnia niezerowa cyfra to kropka dziesiętna
+        pos--;// cofamy się o jeden znak
+    }
+    out.erase(pos + 1);// usuwamy nadmiarowe zera
+    if (out == "-0") {// obsługa przypadku -0
+        out = "0";// zamiana na 0
+    }
+    return out;// zwracamy sformatowany string
+}
 
 
 void waitEnter() {//Do pauzowania programu
@@ -59,6 +82,7 @@ void showmenu() {//Pokazuje menu kalkulatora !!!To do zmiany w formatowanie tabe
 
 
 int main() {
+    cout << fixed; // Ustawienie precyzji wyświetlania liczb zmiennoprzecinkowych
 	setlocale(LC_ALL, "");//Ustawienie lokalizacji na polską żeby obsługiwać polskie znaki
     while (true) {// Pętla do ciągłego działania programu
         clearout(); // czyścimy ekran przed pokazaniem menu
@@ -106,7 +130,7 @@ int main() {
             cout << "Input b: "; cin >> b;
             cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             result = a + b;
-            cout << a << "+" << b << "=" << result << endl;
+            cout << formatNumber(a) << " + " << formatNumber(b) << " = " << formatNumber(result) << endl;
             waitEnter();
             break;
         }
@@ -119,7 +143,7 @@ int main() {
             cout << "Input b: "; cin >> b;
             cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             result = a - b;
-            cout << a << "-" << b << "=" << result << endl;
+            cout << formatNumber(a) << " - " << formatNumber(b) << " = " << formatNumber(result) << endl;
             waitEnter();
             break;
         }
@@ -132,7 +156,7 @@ int main() {
             cout << "Input b: "; cin >> b;
             cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             result = a * b;
-            cout << a << "*" << b << "=" << result << endl;
+            cout << formatNumber(a) << " * " << formatNumber(b) << " = " << formatNumber(result) << endl;//wyświetlanie wyniku
             waitEnter();
             break;
         }
@@ -150,7 +174,7 @@ int main() {
                 cout << "Error: division by zero is not allowed." << endl;
             } else {
                 result = a / b;
-                cout << a << " / " << b << " = " << result << endl;
+                cout << formatNumber(a) << " / " << formatNumber(b) << " = " << formatNumber(result) << endl;
                 cout << "DOKOŃCZYĆ KODOWANIE" << endl;
                 waitEnter();
             }
@@ -168,7 +192,7 @@ int main() {
             cout << "Input a: "; cin >> a;
             cout << "To the power of: "; cin >> b;
             result = powl(a, b);
-            cout << a << " ^ " << b << " = " << result << endl;
+            cout << formatNumber(a) << " ^ " << formatNumber(b) << " = " << formatNumber(result) << endl;
             cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
@@ -182,7 +206,7 @@ int main() {
             cout << "Input a: "; cin >> a;
             cout << "N of root: "; cin >> n;
             result = powl(a, 1.0L / n);
-            cout << n << " root of " << a << " = " << result << endl;
+            cout << formatNumber(n) << " root of " << formatNumber(a) << " = " << formatNumber(result) << endl;
             cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             waitEnter();
             break;
@@ -219,7 +243,7 @@ int main() {
                 cout << "Error: hypotenuse cannot be zero." << endl;
             } else {
                 result = opposite / hypotenuse;
-                cout << "sin = " << result << endl;
+                cout << "sin = " << formatNumber(result) << endl;
                 cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
@@ -237,7 +261,7 @@ int main() {
                 cout << "Error: hypotenuse cannot be zero." << endl;
             } else {
                 result = adjacent / hypotenuse;
-                cout << "cos = " << result << endl;
+                cout << "cos = " << formatNumber(result) << endl;
                 cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
@@ -255,7 +279,7 @@ int main() {
                 cout << "Error: adjacent cannot be zero." << endl;
             } else {
                 result = opposite / adjacent;
-                cout << "tan = " << result << endl;
+                cout << "tan = " << formatNumber(result) << endl;
                 cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
@@ -273,7 +297,7 @@ int main() {
                 cout << "Error: opposite cannot be zero." << endl;
             } else {
                 result = adjacent / opposite;
-                cout << "cot = " << result << endl;
+                cout << "cot = " << formatNumber(result) << endl;
                 cout << "DOKOŃCZYĆ KODOWANIE" << endl;
             }
             waitEnter();
