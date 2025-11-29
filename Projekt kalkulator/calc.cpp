@@ -54,4 +54,7 @@ long double cotangent(long double adjacent, long double opposite) {
 long double piConst() { return acosl(-1.0L); }
 // Zwraca wartosc stalej e
 // !!PRZEROBIĆ NA LICZENIE RĘCZNE NIE Z GOTOWCA
-long double eConst() { return expl(1.0L); }
+long double eConst() {
+    
+    return expl(1.0L);
+}
