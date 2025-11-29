@@ -169,8 +169,7 @@ int main() {
         case 7:{//Pi
             clearout();
             showmenu({{"Pi constant"}},"Pi constant");
-            long double Pi = 3.14L;//tu dodać obliczenie pi
-            cout<< "Pi = "<< Pi << endl;
+            cout<< "Pi = "<< piConst() << endl;
             waitEnter();
             break;
         }
@@ -178,8 +177,7 @@ int main() {
         case 8:{//E
             clearout();
             showmenu({{"Euler's number"}},"Euler's number");
-            long double E = 2.71L;//tu dodać obliczenie e
-            cout<< "e = "<< E << endl;
+            cout<< "e = "<< eConst() << endl;
             waitEnter();
             break;
         }

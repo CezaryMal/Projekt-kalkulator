@@ -1,7 +1,23 @@
 {
     "configurations": [
         {
-            "name": "Projekt kalkulator",
+            "name": "Launch (POSIX) - macOS/Linux (CodeLLDB)",
+            "type": "lldb",
+            "request": "launch",
+            "program": "${workspaceFolder}/Projekt kalkulator/bin/Debug/Projekt kalkulator",
+            "args": [],
+            "stopOnEntry": false,
+            "cwd": "${workspaceFolder}/Projekt kalkulator",
+            "environment": [],
+            "env": {
+                "TERM": "xterm-256color"
+            },
+            "externalConsole": true,
+            "terminal": "external",
+            "preLaunchTask": "Build (macOS) - g++ (all files)"
+        },
+        {
+            "name": "Launch (Windows) - MinGW",
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceFolder}\\Projekt kalkulator\\bin\\Debug\\Projekt kalkulator.exe",
@@ -24,8 +40,8 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: g++.exe build active file"
+            "preLaunchTask": "Build (Windows) - g++ (mingw)"
         }
     ],
-    "version": "2.0.0"
+    "version": "0.2.0"
 }
