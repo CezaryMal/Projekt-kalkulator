@@ -3,7 +3,7 @@ Projekt kalkulatora konsolowego w C++
 
 Semest 1 Grupa D2
 1. Cezary Małgorzaciak
-2. Patryk Podleżyński
+2. Patryk Podleżyński 170396
 3. Kacper Łosicki
 4. Dawid Płachta
 5. Krzysiek Kramarski
