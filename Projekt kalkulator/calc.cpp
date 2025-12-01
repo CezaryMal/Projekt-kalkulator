@@ -51,10 +51,37 @@ long double cotangent(long double adjacent, long double opposite) {
 
 // Zwraca wartosc stalej Pi korzystajac z funkcji acos
 // !!PRZEROBIĆ NA LICZENIE RĘCZNE NIE Z GOTOWCA
-long double piConst() { return acosl(-1.0L); }
-// Zwraca wartosc stalej e
-// !!PRZEROBIĆ NA LICZENIE RĘCZNE NIE Z GOTOWCA
-long double eConst() {
+long double piConst() {
     
-    return expl(1.0L);
+    return acosl(-1.0L);
+}
+// Zwraca wartosc stalej e
+// Aproksymacja ln(x) przez szereg Taylora wokół 1
+long double myLn(long double x) {
+    if (x <= 0) return 0; // ln(x) niezdefiniowane dla x <= 0
+    long double y = (x - 1) / (x + 1); 
+    long double y2 = y * y;
+    long double result = 0.0;
+    long double term = y;
+    int n = 1;
+
+    // rozwinięcie w szereg (metoda logarytmu przez arctanh)
+    while (n < 1000) {
+        result += term / n;
+        term *= y2;
+        n += 2;
+    }
+    return 2 * result;
+}
+
+// Funkcja zwracająca stałą e
+long double eConst() {
+    // Szukamy x takiego, że ln(x) = 1
+    long double x = 2.7; // punkt startowy
+    for (int i = 0; i < 50; i++) {
+        long double fx = myLn(x) - 1.0;
+        long double dfx = 1.0 / x; // pochodna ln(x)
+        x = x - fx / dfx; // Newton-Raphson
+    }
+    return x;
 }
