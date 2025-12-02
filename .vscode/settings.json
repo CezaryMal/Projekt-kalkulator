@@ -4,6 +4,7 @@
         "xstring": "cpp",
         "iosfwd": "cpp",
         "thread": "cpp",
-        "sstream": "cpp"
+        "sstream": "cpp",
+        "limits": "cpp"
     }
 }

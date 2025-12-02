@@ -38,9 +38,9 @@ void clearout() {
 // Informuje uzytkownika o pauzie i czeka na wcisniecie Enter
 void waitEnter() {
     cout << "\nPress [Enter] to continue...";
-    cin.get();
     cin.clear();
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.get();
 }
 
 // Wyswietla tablice elementow menu wraz z tytulem w ozdobnej ramce
