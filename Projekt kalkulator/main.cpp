@@ -26,8 +26,7 @@ Semest 1 Grupa D2
 using namespace std;
 
 int main() {
-    cout << fixed; // Ustawienie precyzji wyświetlania liczb zmiennoprzecinkowych
-	setlocale(LC_ALL, "");//Ustawienie lokalizacji na polską żeby obsługiwać polskie znaki
+    cout << fixed << setprecision(15); // Ustawienie precyzji wyświetlania liczb zmiennoprzecinkowych
 
     while (true) {// Pętla do ciągłego działania programu
         clearout(); // czyścimy ekran przed pokazaniem menu
@@ -87,7 +86,7 @@ int main() {
         case 1: { // Dodawanie
             clearout();
             showmenu({{"input a + input b"}}, "Addition");
-            long double a, b;
+            long double a = 0.0L, b = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "Input b: "; cin >> b;
             cout << formatNumber(a) << " + " << formatNumber(b)
@@ -99,7 +98,7 @@ int main() {
         case 2: { // Odejmowanie
             clearout();
             showmenu({{"input a - input b"}}, "Substraction");
-            long double a, b;
+            long double a = 0.0L, b = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "Input b: "; cin >> b;
             cout << formatNumber(a) << " - " << formatNumber(b)
@@ -111,7 +110,7 @@ int main() {
         case 3: { // Mnożenie
             clearout();
             showmenu({{"input a * input b"}}, "Multiplication");
-            long double a, b;
+            long double a = 0.0L, b = 0.0L;
             cout << "Input a: "; cin >> a;
             cout << "Input b: "; cin >> b;
             cout << formatNumber(a) << " * " << formatNumber(b)
@@ -123,16 +122,17 @@ int main() {
         case 4: { // Dzielenie
             clearout();
             showmenu({{"input a / input b"}}, "Division");
-            long double a, b;
+            long double a = 0.0L, b = 0.0L, result = 0.0L;
             cout << "Input a (numerator): "; cin >> a;
             cout << "Input b (denominator): "; cin >> b;
 
-            try {
-                long double result = divide(a, b); // używamy funkcji z calc.cpp
-                cout << formatNumber(a) << " / " << formatNumber(b)
-                     << " = " << formatNumber(result) << endl;
-            } catch (const exception& e) {
-                cout << "Error: " << e.what() << endl; // wyświetlamy treść wyjątku
+            if (myAbs(b) < 1e-18L) {
+                // b (mianownik) jest praktycznie zerem -> wyświetlamy błąd
+                cout << "Error: division by zero is not allowed." << endl;
+            } 
+            else {
+                result = divide(a, b);
+                cout << formatNumber(a) << " / " << formatNumber(b) << " = " << formatNumber(result) << endl;
             }
             
             waitEnter();
@@ -145,12 +145,7 @@ int main() {
             long double a, b;
             cout << "Input a: "; cin >> a;
             cout << "To the power of: "; cin >> b;
-            try {
-                cout << formatNumber(a) << " ^ " << formatNumber(b)
-                    << " = " << formatNumber(power(a, b)) << endl;
-            } catch (const exception& e) {
-                cout << "Error: " << e.what() << endl;
-            }
+            cout << formatNumber(a) << " ^ " << formatNumber(b) << " = " << formatNumber(power(a, b)) << endl;
             waitEnter();
             break;
         }
@@ -158,15 +153,10 @@ int main() {
         case 6: { // Pierwiastkowanie
             clearout();
             showmenu({{"input n root of input a"}}, "Root");
-            long double a, n;
+            long double a = 0.0L, n = 2.0L;
             cout << "Input a: "; cin >> a;
             cout << "N of root: "; cin >> n;
-            try {
-                cout << formatNumber(n) << " root of " << formatNumber(a)
-                     << " = " << formatNumber(root(a, n)) << endl;
-            } catch (const exception& e) {
-                cout << "Error: " << e.what() << endl;
-            }
+            cout << formatNumber(n) << " root of " << formatNumber(a) << " = " << formatNumber(root(a, n)) << endl;
             waitEnter();
             break;
         }
@@ -193,11 +183,7 @@ int main() {
             long double opposite, hypotenuse;
             cout << "Input Opposite: "; cin >> opposite;
             cout << "Input Hypotenuse: "; cin >> hypotenuse;
-            try {
-                cout << "sin = " << formatNumber(sine(opposite, hypotenuse)) << endl;
-            } catch (const exception& e) {
-                cout << "Error: " << e.what() << endl;
-            }
+            cout << formatNumber(opposite) << " root of " << formatNumber(hypotenuse) << " = " << formatNumber(sine(opposite, hypotenuse)) << endl;
             waitEnter();
             break;
         }
@@ -208,11 +194,7 @@ int main() {
             long double adjacent, hypotenuse;
             cout << "Input Adjacent: "; cin >> adjacent;
             cout << "Input Hypotenuse: "; cin >> hypotenuse;
-            try {
-                cout << "cos = " << formatNumber(cosine(adjacent, hypotenuse)) << endl;
-            } catch (const exception& e) {
-                cout << "Error: " << e.what() << endl;
-            }
+            cout << formatNumber(adjacent) << " root of " << formatNumber(hypotenuse) << " = " << formatNumber(cosine(adjacent, hypotenuse)) << endl;
             waitEnter();
             break;
         }
@@ -223,11 +205,7 @@ int main() {
             long double opposite, adjacent;
             cout << "Input Opposite: "; cin >> opposite;
             cout << "Input Adjacent: "; cin >> adjacent;
-            try {
-                cout << "tan = " << formatNumber(tangent(opposite, adjacent)) << endl;
-            } catch (const exception& e) {
-                cout << "Error: " << e.what() << endl;
-            }
+            cout << formatNumber(opposite) << " root of " << formatNumber(adjacent) << " = " << formatNumber(cosine(opposite, adjacent)) << endl;
             waitEnter();
             break;
         }
@@ -238,11 +216,7 @@ int main() {
             long double adjacent, opposite;
             cout << "Input Adjacent: "; cin >> adjacent;
             cout << "Input Opposite: "; cin >> opposite;
-            try {
-                cout << "cot = " << formatNumber(cotangent(adjacent, opposite)) << endl;
-            } catch (const exception& e) {
-                cout << "Error: " << e.what() << endl;
-            }
+            cout << formatNumber(adjacent) << " root of " << formatNumber(opposite) << " = " << formatNumber(cosine(adjacent, opposite)) << endl;
             waitEnter();
             break;
         }

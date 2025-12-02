@@ -47,7 +47,6 @@ long double subtract(long double a, long double b) { return a - b; }
 long double multiply(long double a, long double b) { return a * b; }
 
 long double divide(long double a, long double b) {
-    if (myAbs(b) < 1e-18L) throw std::runtime_error("division by zero");
     return a / b;
 }
 
@@ -56,9 +55,37 @@ long double power(long double base, long double exponent) {
     if (exponent == (long long)exponent) {
         return myPowInt(base, (long long)exponent);
     }
-    // dla rzeczywistych można użyć przybliżenia przez e^(exp * ln(base))
-    // ale tu zostawiamy prostą wersję dla całkowitych
-    throw std::runtime_error("non-integer exponent not supported");
+    
+    // dla rzeczywistych wykładników: a^b = e^(b * ln(a))
+    if (base <= 0) throw std::runtime_error("base must be positive for non-integer exponent");
+    
+    long double lnBase = 0.0L;
+    
+    // Obliczanie logarytmu naturalnego metodą Newtona
+    // ln(x) ≈ iteracyjna aproksymacja
+    long double x = base;
+    long double result = (x - 1.0L) / (x + 1.0L);
+    long double power2 = result;
+    long double lnSum = 2.0L * result;
+    
+    for (int i = 1; i < 100; i++) {
+        power2 *= result * result;
+        lnSum += (2.0L * power2) / (2.0L * i + 1.0L);
+    }
+    lnBase = lnSum;
+    
+    long double expArg = exponent * lnBase;
+    
+    // Obliczanie e^x metodą szeregu Taylora
+    long double expSum = 1.0L;
+    long double term = 1.0L;
+    for (int i = 1; i < 100; i++) {
+        term *= expArg / i;
+        expSum += term;
+        if (myAbs(term) < 1e-18L) break;
+    }
+    
+    return expSum;
 }
 
 long double root(long double value, long double n) {
@@ -68,7 +95,7 @@ long double root(long double value, long double n) {
     long long nInt = (long long)n;
     if (value < 0 && nInt % 2 == 0) throw std::runtime_error("cannot take even root of negative");
 
-    return myPowInt(value, 1 / nInt);
+    return power(value, 1.0L / n);
 }
 
 // ---------------------- TRYGO ----------------------
