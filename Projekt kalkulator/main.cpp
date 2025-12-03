@@ -183,7 +183,14 @@ int main() {
             long double opposite, hypotenuse;
             cout << "Input Opposite: "; cin >> opposite;
             cout << "Input Hypotenuse: "; cin >> hypotenuse;
-            cout << formatNumber(opposite) << " root of " << formatNumber(hypotenuse) << " = " << formatNumber(sine(opposite, hypotenuse)) << endl;
+            try {
+                long double result = sine(opposite, hypotenuse);
+                cout << formatNumber(opposite) << " / " << formatNumber(hypotenuse) << " = " << formatNumber(result) << endl;
+            }
+            catch (const std::exception& e) {
+                std::cerr << "Error: " << e.what() << std::endl;
+            }
+            
             waitEnter();
             break;
         }
@@ -194,7 +201,12 @@ int main() {
             long double adjacent, hypotenuse;
             cout << "Input Adjacent: "; cin >> adjacent;
             cout << "Input Hypotenuse: "; cin >> hypotenuse;
-            cout << formatNumber(adjacent) << " root of " << formatNumber(hypotenuse) << " = " << formatNumber(cosine(adjacent, hypotenuse)) << endl;
+            if (myAbs(hypotenuse) < 1e-18L) {//sprawdzamy czy nie dzielimy przez 0
+                cout << "Error: hypotenuse cannot be zero." << endl;
+            } 
+            else {
+                cout << "cos = " << formatNumber(cosine(adjacent, hypotenuse)) << endl;
+            }
             waitEnter();
             break;
         }
@@ -205,7 +217,7 @@ int main() {
             long double opposite, adjacent;
             cout << "Input Opposite: "; cin >> opposite;
             cout << "Input Adjacent: "; cin >> adjacent;
-            cout << formatNumber(opposite) << " root of " << formatNumber(adjacent) << " = " << formatNumber(cosine(opposite, adjacent)) << endl;
+            cout << formatNumber(opposite) << " / " << formatNumber(adjacent) << " = " << formatNumber(tangent(opposite, adjacent)) << endl;
             waitEnter();
             break;
         }
@@ -216,7 +228,7 @@ int main() {
             long double adjacent, opposite;
             cout << "Input Adjacent: "; cin >> adjacent;
             cout << "Input Opposite: "; cin >> opposite;
-            cout << formatNumber(adjacent) << " root of " << formatNumber(opposite) << " = " << formatNumber(cosine(adjacent, opposite)) << endl;
+            cout << formatNumber(adjacent) << " / " << formatNumber(opposite) << " = " << formatNumber(cotangent(adjacent, opposite)) << endl;
             waitEnter();
             break;
         }

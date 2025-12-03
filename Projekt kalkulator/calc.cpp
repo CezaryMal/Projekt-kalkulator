@@ -104,28 +104,28 @@ long double root(long double value, long double n) {
 // Sinus = przeciwległa / przeciwprostokątna
 long double sine(long double opposite, long double hypotenuse) {
     if (myAbs(hypotenuse) < 1e-18L) throw std::runtime_error("hypotenuse cannot be zero");
-    if (opposite < 0 || hypotenuse <= 0) throw std::runtime_error("triangle sides must be positive");
+    if (opposite <= 0 || hypotenuse <= 0) throw std::invalid_argument("triangle sides must be positive");
     return opposite / hypotenuse;
 }
 
 // Cosinus = przyległa / przeciwprostokątna
 long double cosine(long double adjacent, long double hypotenuse) {
     if (myAbs(hypotenuse) < 1e-18L) throw std::runtime_error("hypotenuse cannot be zero");
-    if (adjacent < 0 || hypotenuse <= 0) throw std::runtime_error("triangle sides must be positive");
+    if (adjacent <= 0 || hypotenuse <= 0) throw std::runtime_error("triangle sides must be positive");
     return adjacent / hypotenuse;
 }
 
 // Tangens = przeciwległa / przyległa
 long double tangent(long double opposite, long double adjacent) {
     if (myAbs(adjacent) < 1e-18L) throw std::runtime_error("adjacent cannot be zero");
-    if (opposite < 0 || adjacent <= 0) throw std::runtime_error("triangle sides must be positive");
+    if (opposite <= 0 || adjacent <= 0) throw std::runtime_error("triangle sides must be positive");
     return opposite / adjacent;
 }
 
 // Cotangens = przyległa / przeciwległa
 long double cotangent(long double adjacent, long double opposite) {
     if (myAbs(opposite) < 1e-18L) throw std::runtime_error("opposite cannot be zero");
-    if (adjacent < 0 || opposite <= 0) throw std::runtime_error("triangle sides must be positive");
+    if (adjacent <= 0 || opposite <= 0) throw std::runtime_error("triangle sides must be positive");
     return adjacent / opposite;
 }
 
