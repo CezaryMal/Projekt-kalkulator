@@ -100,7 +100,7 @@ long double readsafecheck(const string& prompt){
             continue;
         }
         if(fabsl(x) >= limit){
-            cout << "Input out of range ( x <10^" << digits << "). \n Please enter number between -" << limit << " and " << limit << "." << endl;
+            cout << "Input out of range ( x <10^" << digits << "). \n Please enter number between -" << formatNumber(limit) << " and " << formatNumber(limit) << "." << endl;
             continue;
         }
         return x;
