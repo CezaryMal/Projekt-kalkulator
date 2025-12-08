@@ -47,6 +47,7 @@ long double subtract(long double a, long double b) { return a - b; }
 long double multiply(long double a, long double b) { return a * b; }
 
 long double divide(long double a, long double b) {
+    if (myAbs(b) < 1e-18L) throw std::runtime_error("division by zero");
     return a / b;
 }
 
@@ -101,33 +102,38 @@ long double root(long double value, long double n) {
 // ---------------------- TRYGO ----------------------
 // Funkcje trygonometryczne w wersji geometrycznej (stosunki boków)
 
-// Sinus = przeciwległa / przeciwprostokątna
+// Zwraca sinus jako stosunek przeciwleglej do przeciwprostokatnej
 long double sine(long double opposite, long double hypotenuse) {
     if (myAbs(hypotenuse) < 1e-18L) throw std::runtime_error("hypotenuse cannot be zero");
-    if (opposite <= 0 || hypotenuse <= 0) throw std::invalid_argument("triangle sides must be positive");
+    if (opposite < 0) throw std::runtime_error("opposite cannot be negative");
+    if (hypotenuse < 0) throw std::runtime_error("hypotenuse cannot be negative");
     return opposite / hypotenuse;
 }
 
-// Cosinus = przyległa / przeciwprostokątna
+// Zwraca cosinus jako stosunek przyleglej do przeciwprostokatnej
 long double cosine(long double adjacent, long double hypotenuse) {
     if (myAbs(hypotenuse) < 1e-18L) throw std::runtime_error("hypotenuse cannot be zero");
-    if (adjacent <= 0 || hypotenuse <= 0) throw std::runtime_error("triangle sides must be positive");
+    if (adjacent < 0) throw std::runtime_error("adjacent cannot be negative");
+    if (hypotenuse < 0) throw std::runtime_error("hypotenuse cannot be negative");
     return adjacent / hypotenuse;
 }
 
-// Tangens = przeciwległa / przyległa
+// Tangens to stosunek przeciwleglej do przyleglej
 long double tangent(long double opposite, long double adjacent) {
     if (myAbs(adjacent) < 1e-18L) throw std::runtime_error("adjacent cannot be zero");
-    if (opposite <= 0 || adjacent <= 0) throw std::runtime_error("triangle sides must be positive");
+    if (opposite < 0) throw std::runtime_error("opposite cannot be negative");
+    if (adjacent < 0) throw std::runtime_error("adjacent cannot be negative");
     return opposite / adjacent;
 }
 
-// Cotangens = przyległa / przeciwległa
+// Cotangens to odwrotnosc tangensa
 long double cotangent(long double adjacent, long double opposite) {
     if (myAbs(opposite) < 1e-18L) throw std::runtime_error("opposite cannot be zero");
-    if (adjacent <= 0 || opposite <= 0) throw std::runtime_error("triangle sides must be positive");
+    if (adjacent < 0) throw std::runtime_error("adjacent cannot be negative");
+    if (opposite < 0) throw std::runtime_error("opposite cannot be negative");
     return adjacent / opposite;
 }
+
 
 // ---------------------- STAŁE MATEMATYCZNE ----------------------
 

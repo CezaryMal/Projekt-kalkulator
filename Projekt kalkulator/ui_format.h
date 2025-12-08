@@ -26,3 +26,8 @@ void waitEnter();
 void showmenu(const std::vector<MenuItem>& items, const std::string& title);
 // Formatuje liczbe zmiennoprzecinkowa usuwajac zbedne zera
 std::string formatNumber(long double value);
+// Rysuje pozioma linie ramki
+void border();
+// Bezpiecznie odczytuje liczbe zmiennoprzecinkowa z konsoli
+
+long double readsafecheck(const std::string& prompt);

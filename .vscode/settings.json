@@ -5,6 +5,8 @@
         "iosfwd": "cpp",
         "thread": "cpp",
         "sstream": "cpp",
-        "limits": "cpp"
+        "limits": "cpp",
+        "ostream": "cpp",
+        "stdexcept": "cpp"
     }
 }
