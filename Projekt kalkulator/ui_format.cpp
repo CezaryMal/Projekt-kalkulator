@@ -60,8 +60,13 @@ void showmenu(const vector<MenuItem>& items, const string& title) {
     }
     cout << '+' << border << "+\n";
 }
+void border(){
+    constexpr int width = 40;
+    const string border(width, '-');
+    cout << '+' << border << "+\n";
+}
 string formatNumber(long double value) {// Funkcja formatująca liczbę zmiennoprzecinkową do stringa z usuniętymi nadmiarowymi zerami i zaogrąglaniem
-    constexpr int kFractionDigits = 12;// liczba cyfr po przecinku
+    constexpr int kFractionDigits = 10;// liczba cyfr po przecinku
     const long double scale = powl(10.0L, static_cast<long double>(kFractionDigits));// skala do zaokrąglania
     long double rounded = roundl(value * scale) / scale;// zaokrąglanie liczby
 
@@ -80,4 +85,24 @@ string formatNumber(long double value) {// Funkcja formatująca liczbę zmiennop
         out = "0";// zamiana na 0
     }
     return out;// zwracamy sformatowany string
+}
+long double readsafecheck(const string& prompt){
+    const int digits = numeric_limits<long double>::digits10;
+    const long double limit = powl(10.0L, static_cast<long double>(digits));
+    while (true){
+        cout << prompt;
+        long double x;
+        cin >> x;
+        if(cin.fail()){
+            cin.clear();
+            cin.ignore(numeric_limits<streamsize>::max(), '\n');
+            cout << "Invalid input. Please enter a valid number." << endl;
+            continue;
+        }
+        if(fabsl(x) >= limit){
+            cout << "Input out of range ( x <10^" << digits << "). \n Please enter number between -" << formatNumber(limit) << " and " << formatNumber(limit) << "." << endl;
+            continue;
+        }
+        return x;
+    }
 }

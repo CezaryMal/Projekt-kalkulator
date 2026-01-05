@@ -16,7 +16,6 @@ Semest 1 Grupa D2
 #include <chrono>
 #include <thread>
 #include <cctype>
-#include <cmath>
 #include <iomanip>
 #include <string>
 #include <sstream>
@@ -24,14 +23,11 @@ Semest 1 Grupa D2
 #include "ui_format.h"
 #include "calc.h"
 
-
-
 using namespace std;
 
-
 int main() {
-    cout << fixed; // Ustawienie precyzji wyświetlania liczb zmiennoprzecinkowych
-	setlocale(LC_ALL, "");//Ustawienie lokalizacji na polską żeby obsługiwać polskie znaki
+    cout << fixed << setprecision(15); // Ustawienie precyzji wyświetlania liczb zmiennoprzecinkowych
+
     while (true) {// Pętla do ciągłego działania programu
         clearout(); // czyścimy ekran przed pokazaniem menu
         showmenu(
@@ -48,10 +44,12 @@ int main() {
                 {10, "Cosine"},
                 {11, "Tangent"},
                 {12, "Cotangent"},
+                {13, "Demo of all functions"},
                 {0, "Exit"}
             },
             "Console Calculator"
         ); // wyświetlamy menu
+
         string choice;
         cout << "Input your choice: ";
         cin >> choice; // czytamy wybór użytkownika jako tekst (pozwala na 10,11,12)
@@ -59,8 +57,10 @@ int main() {
         int opt = -1;
         // Parsowanie wyboru: akceptujemy wielocyfrowe liczby (np. 10, 11, 12).
         bool ok = true;
+
         if (choice.empty()) ok = false;//sprawdzamy czy nie jest puste
         for (char ch : choice) if (!isdigit(static_cast<unsigned char>(ch))) ok = false;//sprawdzamy czy każda cyfra jest cyfrą
+
         if (!ok) {
             // Nieprawidłowy format wyboru (np. litery) — prosimy o ponowny wybór
             showmenu({{"Unknown choice. Input 0-12."}}, "Error");
@@ -87,68 +87,73 @@ int main() {
         case 1:{//Dodawanie
             clearout();
             showmenu({{"input a + input b"}},"Addition");
-            long double a = 0.0L, b = 0.0L;
+            long double a = readsafecheck("Input a: ");
+            long double b = readsafecheck("Input b: ");
             long double result = 0.0L;
-            cout << "Input a: "; cin >> a;
-            cout << "Input b: "; cin >> b;
-            result = a + b;
-            cout << formatNumber(a) << " + " << formatNumber(b) << " = " << formatNumber(result) << endl;
+            result = add(a, b);
+            cout << formatNumber(a) << " + " << formatNumber(b)
+             << " = " << formatNumber(result) << endl;
             waitEnter();
             break;
         }
+
         case 2:{//Odejmowanie
             clearout();
             showmenu({{"input a - input b"}},"Substraction");
-            long double a = 0.0L, b = 0.0L;
+            long double a = readsafecheck("Input a: ");
+            long double b = readsafecheck("Input b: ");
             long double result = 0.0L;
-            cout << "Input a: "; cin >> a;
-            cout << "Input b: "; cin >> b;
-            result = a - b;
-            cout << formatNumber(a) << " - " << formatNumber(b) << " = " << formatNumber(result) << endl;
+            result = subtract(a, b);
+            cout << formatNumber(a) << " - " << formatNumber(b)
+             << " = " << formatNumber(result) << endl;
             waitEnter();
             break;
         }
         case 3:{//Mnożenie
             clearout();
             showmenu({{"input a * input b"}},"Multiplication");
-            long double a = 0.0L, b = 0.0L;
             long double result = 0.0L;
-            cout << "Input a: "; cin >> a;
-            cout << "Input b: "; cin >> b;
-            result = a * b;
-            cout << formatNumber(a) << " * " << formatNumber(b) << " = " << formatNumber(result) << endl;//wyświetlanie wyniku
+            long double a = readsafecheck("Input a: ");
+            long double b = readsafecheck("Input b: ");
+            result = multiply(a, b);
+            cout << formatNumber(a) << " * " << formatNumber(b)
+             << " = " << formatNumber(result) << endl;//wyświetlanie wyniku
             waitEnter();
             break;
         }
+
         case 4: { // Dzielenie: sprawdzamy czy nie dzielimy przez zero, jeśli OK obliczamy wynik
             clearout();
             showmenu({{"input a / input b"}},"Division");
-            long double a = 0.0L, b = 0.0L;
+            long double a = readsafecheck("Input a: ");
+            long double b = readsafecheck("Input b: ");
             long double result = 0.0L;
-            cout << "Input a (numerator): "; cin >> a;
-            cout << "Input b (denominator): "; cin >> b;
 
-               
-            if (fabsl(b) < 1e-18L) {
-                // b (mianownik) jest praktycznie zerem -> wyświetlamy błąd
-                cout << "Error: division by zero is not allowed." << endl;
-            } else {
-                result = a / b;
+            try {
+                result = divide(a, b);
                 cout << formatNumber(a) << " / " << formatNumber(b) << " = " << formatNumber(result) << endl;
-                waitEnter();
+            } catch (const std::runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
             }
+            
+            waitEnter();
             break;
         }
 
         case 5: {//Potęgowanie
             clearout();
-            showmenu({{"input a ^ input b"}},"Exponentiation");
-            long double a = 0.0L, b = 0.0L;
+            showmenu({{"input a ^ To the power of b"}},"Exponentiation");
+            long double a = readsafecheck("Input a: ");
+            long double b = readsafecheck("To the power of: ");
             long double result = 0.0L;
-            cout << "Input a: "; cin >> a;
-            cout << "To the power of: "; cin >> b;
-            result = powl(a, b);
-            cout << formatNumber(a) << " ^ " << formatNumber(b) << " = " << formatNumber(result) << endl;
+
+            try{
+                result = power(a, b);
+                cout << formatNumber(a) << " ^ " << formatNumber(b) << " = " << formatNumber(result) << endl;
+            }
+            catch(const std::exception& e) {
+                cout << "Error: " << e.what() << endl;
+            }
             waitEnter();
             break;
         }
@@ -156,12 +161,15 @@ int main() {
         case 6: {//Pierwiastkowanie
             clearout();
             showmenu({{"input n root of input a"}},"Root");
-            long double a = 0.0L, n = 2.0L;
+            long double a = readsafecheck("Input a: ");
+            long double b = readsafecheck("N of root: ");
             long double result = 0.0L;
-            cout << "Input a: "; cin >> a;
-            cout << "N of root: "; cin >> n;
-            result = powl(a, 1.0L / n);
-            cout << formatNumber(n) << " root of " << formatNumber(a) << " = " << formatNumber(result) << endl;
+            try {
+                long double result = root(a, b);
+                cout << formatNumber(b) << " root of " << formatNumber(a) << " = " << formatNumber(result) << endl;
+            } catch (const std::runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
+            }
             waitEnter();
             break;
         }
@@ -185,15 +193,15 @@ int main() {
         case 9: {//Sinus
             clearout();
             showmenu({{"input opposite / input hypotenuse"}},"Sine");
-            long double opposite = 0.0L, hypotenuse = 0.0L;
+            long double a = readsafecheck("Input opposite: "); // przeciwległy bok
+            long double b = readsafecheck("Input Hypotenuse: "); // przeciwprostokątna
             long double result = 0.0L;
-            cout << "Input Opposite: "; cin >> opposite; // przeciwległy bok
-            cout << "Input Hypotenuse: "; cin >> hypotenuse; // przeciwprostokątna
-            if (fabsl(hypotenuse) < 1e-18L) {//sprawdzamy czy nie dzielimy przez 0
-                cout << "Error: hypotenuse cannot be zero." << endl;
-            } else {
-                result = opposite / hypotenuse;
+
+            try {
+                result = sine(a, b);
                 cout << "sin = " << formatNumber(result) << endl;
+            } catch (const std::runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
             }
             waitEnter();
             break;
@@ -202,15 +210,15 @@ int main() {
         case 10: {//Cosinus
             clearout();
             showmenu({{"input adjacent / input hypotenuse"}},"Cosine");
-            long double adjacent = 0.0L, hypotenuse = 0.0L;
+            long double a = readsafecheck("Input adjacent: "); // bok przyległy
+            long double b = readsafecheck("Input hypotenuse: "); // przeciwprostokątna
             long double result = 0.0L;
-            cout << "Input Adjacent: "; cin >> adjacent; // bok przyległy
-            cout << "Input Hypotenuse: "; cin >> hypotenuse; // przeciwprostokątna
-            if (fabsl(hypotenuse) < 1e-18L) {//sprawdzamy czy nie dzielimy przez 0
-                cout << "Error: hypotenuse cannot be zero." << endl;
-            } else {
-                result = adjacent / hypotenuse;
+
+            try {
+                result = cosine(a, b);
                 cout << "cos = " << formatNumber(result) << endl;
+            } catch (const std::runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
             }
             waitEnter();
             break;
@@ -219,15 +227,14 @@ int main() {
         case 11: {//Tangens
             clearout();
             showmenu({{"input opposite / input adjacent"}},"Tangent");
-            long double opposite = 0.0L, adjacent = 0.0L;
+            long double a = readsafecheck("Input opposite: ");// przeciwległy bok
+            long double b = readsafecheck("Input adjacent: ");// bok przyległy
             long double result = 0.0L;
-            cout << "Input Opposite: "; cin >> opposite; // przeciwległy bok
-            cout << "Input Adjacent: "; cin >> adjacent; // bok przyległy
-            if (fabsl(adjacent) < 1e-18L) {//sprawdzamy czy nie dzielimy przez 0
-                cout << "Error: adjacent cannot be zero." << endl;
-            } else {
-                result = opposite / adjacent;
+            try {
+                result = tangent(a, b);
                 cout << "tan = " << formatNumber(result) << endl;
+            } catch (const std::runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
             }
             waitEnter();
             break;
@@ -236,15 +243,41 @@ int main() {
         case 12: {//Cotangens
             clearout();
             showmenu({{"input adjacent / input opposite"}},"Cotangent");
-            long double adjacent = 0.0L, opposite = 0.0L;
+            long double a = readsafecheck("Input adjacent: ");// bok przyległy
+            long double b = readsafecheck("Input opposite: ");// przeciwległy bok
             long double result = 0.0L;
-            cout << "Input Adjacent: "; cin >> adjacent; // bok przyległy
-            cout << "Input Opposite: "; cin >> opposite; // przeciwległy bok
-            if (fabsl(opposite) < 1e-18L) {//sprawdzanie czy nie dzielimy przez 0
-                cout << "Error: opposite cannot be zero." << endl;
-            } else {
-                result = adjacent / opposite;
+
+            try {
+                result = cotangent(a, b);
                 cout << "cot = " << formatNumber(result) << endl;
+            } catch (const std::runtime_error& e) {
+                cout << "Error: " << e.what() << endl;
+            }
+            waitEnter();
+            break;
+        }
+        case 13: {
+            clearout();
+            showmenu({{"Demo of all functions"}},"Demo");
+            long double a = readsafecheck("Input a: ");
+            long double b = readsafecheck("Input b: ");
+            if (myAbs(b) < 1e-18L) {//sprawdzanie czy nie dzielimy przez 0
+                cout << "Error: b cannot be zero." << endl;
+            } 
+            else{
+                border();
+                cout << "Addition: " << formatNumber(add(a,b)) << endl;
+                cout << "Substraction: " << formatNumber(subtract(a,b))<< endl;
+                cout << "Multiplication: " << formatNumber(multiply(a,b))<< endl;
+                cout << "Division: " << formatNumber(divide(a,b))<< endl;
+                cout << "Exponentiation: " << formatNumber(power(a,b))<< endl;
+                cout << "Root: " << formatNumber(root(a,b))<< endl;
+                cout << "Pi: " << piConst()<< endl;
+                cout << "E: " << eConst()<< endl;
+                cout << "Sine: " << formatNumber(sine(a,b))<< endl;
+                cout << "Cosine: " << formatNumber(cosine(a,b))<< endl;
+                cout << "Tangent: " << formatNumber(tangent(a,b))<< endl;
+                cout << "Cotangent: " << formatNumber(cotangent(a,b))<< endl;
             }
             waitEnter();
             break;
@@ -260,4 +293,3 @@ int main() {
     }
     return 0;
 }
-
