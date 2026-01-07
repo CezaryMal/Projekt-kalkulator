@@ -1,0 +1,76 @@
+# depslib dependency file v1.0
+1764419584 source:c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\calc.cpp
+	"calc.h"
+	<cmath>
+	<stdexcept>
+
+1764419584 c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\calc.h
+
+1764425520 source:c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\main.cpp
+	<iostream>
+	<cstdlib>
+	<chrono>
+	<thread>
+	<cctype>
+	<cmath>
+	<iomanip>
+	<string>
+	<sstream>
+	"ui_format.h"
+	"calc.h"
+
+1764424816 c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\ui_format.h
+	<string>
+	<vector>
+
+1764424814 source:c:\users\teamv\documents\github\projekt-kalkulator\projekt kalkulator\ui_format.cpp
+	"ui_format.h"
+	<iostream>
+	<iomanip>
+	<limits>
+	<sstream>
+	<cmath>
+	<windows.h>
+
+1765147077 source:c:\users\patry\onedrive\dokumenty\github\projekt-kalkulator\projekt kalkulator\ui_format.cpp
+	"ui_format.h"
+	<iostream>
+	<iomanip>
+	<limits>
+	<sstream>
+	<cmath>
+	<cstdlib>
+	<windows.h>
+
+1765148081 c:\users\patry\onedrive\dokumenty\github\projekt-kalkulator\projekt kalkulator\ui_format.h
+	<string>
+	<vector>
+
+1767816341 source:c:\users\krzysiek\downloads\projekt-kalkulator-krzysiek\projekt-kalkulator-krzysiek\projekt kalkulator\calc.cpp
+	"calc.h"
+	<stdexcept>
+
+1767816341 c:\users\krzysiek\downloads\projekt-kalkulator-krzysiek\projekt-kalkulator-krzysiek\projekt kalkulator\calc.h
+
+1767824895 source:c:\users\krzysiek\downloads\projekt-kalkulator-krzysiek\projekt-kalkulator-krzysiek\projekt kalkulator\main.cpp
+	<iostream>
+	<chrono>
+	<thread>
+	<string>
+	<cctype>
+	"ui_format.h"
+	"calc.h"
+
+1767825794 c:\users\krzysiek\downloads\projekt-kalkulator-krzysiek\projekt-kalkulator-krzysiek\projekt kalkulator\ui_format.h
+	<string>
+	<vector>
+
+1767826990 source:c:\users\krzysiek\downloads\projekt-kalkulator-krzysiek\projekt-kalkulator-krzysiek\projekt kalkulator\ui_format.cpp
+	"ui_format.h"
+	<iostream>
+	<iomanip>
+	<sstream>
+	<cstdlib>
+	<limits>
+	<cmath>
+
