@@ -8,30 +8,36 @@
 
 using namespace std;
 
-const int tableWidth = 29;
+/*
+ tableWidth = calkowita szerokosc tabeli
+ (razem z + i |)
+*/
+int tableWidth = 29;
 
 // ---------- helpers ----------
 
-static void printTop() {
-    cout << "+-----------------------------+\n";
+static void printTop()
+{
+    cout << "+" << string(tableWidth - 2, '-') << "+\n";
 }
 
-static void printMid() {
-    cout << "+--------------+--------------+\n";
+static void printMid()
+{
+    int half = (tableWidth - 3) / 2;
+    cout << "+" << string(half, '-') << "+"
+         << string(tableWidth - 3 - half, '-') << "+\n";
 }
 
 static string center(const string &txt)
 {
-    int padding = (tableWidth - 2 - (int)txt.size()) / 2;
-    if (padding < 0) padding = 0;
+    int inner = tableWidth - 2;
+    int left = (inner - (int)txt.size()) / 2;
+    int right = inner - (int)txt.size() - left;
 
-    ostringstream o;
-    o << "|"
-      << setw(padding + txt.size()) << txt
-      << setw(tableWidth - 1 - padding - (int)txt.size()) << " "
-      << "|\n";
+    if (left < 0) left = 0;
+    if (right < 0) right = 0;
 
-    return o.str();
+    return "|" + string(left, ' ') + txt + string(right, ' ') + "|\n";
 }
 
 // ---------- ekran ----------
@@ -63,7 +69,6 @@ void showmenu(const vector<MenuItem> &items, const string &title)
     for (auto &i : items)
     {
         ostringstream l;
-
         if (i.displayId)
             l << i.id << " - " << i.label;
         else
@@ -81,7 +86,6 @@ void waitEnter()
 {
     cout << "\nPress ENTER to continue...";
     cin.ignore(numeric_limits<streamsize>::max(), '\n');
-    cin.get();
 }
 
 // ---------- FORMAT LICZB ----------
@@ -90,7 +94,6 @@ string formatNumber(long double value)
 {
     long double rounded = llround(value);
 
-    // liczby calkowite bez .00000
     if (fabsl(value - rounded) < 1e-12L)
     {
         ostringstream out;
@@ -103,17 +106,15 @@ string formatNumber(long double value)
 
     string s = out.str();
 
-    // usuwanie zer koncowych
     while (!s.empty() && s.back() == '0')
         s.pop_back();
-
     if (!s.empty() && s.back() == '.')
         s.pop_back();
 
     return s;
 }
 
-// ---------- WCZYTYWANIE (BEZ ZAPETLANIA) ----------
+// ---------- WCZYTYWANIE ----------
 
 long double readsafecheck(const string &prompt)
 {
@@ -129,8 +130,7 @@ long double readsafecheck(const string &prompt)
 
         try
         {
-            long double v = stold(line);
-            return v;
+            return stold(line);
         }
         catch (...)
         {

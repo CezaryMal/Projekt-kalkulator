@@ -35,8 +35,7 @@ int main()
             {11, "Tangent"},
             {12, "Cotangent"},
             {13, "Demo"},
-            {14, "Operator mode"},
-            {15, "About"},
+            {14, "About"},
             {0, "Exit"}
         },
         "Console Calculator");
@@ -45,6 +44,9 @@ int main()
         string c;
         cout << "Your choice: ";
         cin >> c;
+        cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+
+
 
         bool ok = true;
 
@@ -57,7 +59,7 @@ int main()
         {
 
 
-            cout << "\nWrong option. Use numbers only (0-15).\n";
+            cout << "\nWrong option. Use menu numbers only.\n";
             waitEnter();
             continue;
         }
@@ -223,38 +225,8 @@ int main()
             waitEnter();
             break;
         }
-
         // ---------- 14 ----------
-        case 14: {
-            long double a = readsafecheck("Input a: ");
-            long double b = readsafecheck("Input b: ");
-
-            char op;
-            cout << "Operator (+ - * / ^): ";
-            cin >> op;
-
-            long double r = 0;
-
-            switch(op)
-            {
-                case '+': r = add(a,b); break;
-                case '-': r = subtract(a,b); break;
-                case '*': r = multiply(a,b); break;
-                case '/': r = divide(a,b); break;
-                case '^': r = power(a,b); break;
-                default:
-                    cout << "Unknown operator\n";
-                    waitEnter();
-                    continue;
-            }
-
-            resultTable("OPERATOR MODE", "a", a, "b", b, "RESULT", r);
-            waitEnter();
-            break;
-        }
-
-        // ---------- 15 ----------
-        case 15:
+        case 14:
             clearout();
             showAbout();
             break;
