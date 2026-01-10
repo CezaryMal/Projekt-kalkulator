@@ -1,7 +1,7 @@
 /*
 Projekt kalkulatora konsolowego w C++
 
-Semest 1 Grupa D2
+Semestr 1 Grupa D2
 1. Cezary Małgorzaciak
 2. Patryk Podleżyński
 3. Kacper Łosicki
