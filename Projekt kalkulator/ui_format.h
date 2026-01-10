@@ -1,7 +1,9 @@
+// ui_format.h
 #pragma once
 #include <string>
 #include <vector>
 
+// Struktura opisuje pojedynczy element menu wyswietlany w konsoli
 struct MenuItem {
     MenuItem() = default;
     MenuItem(int idValue, const std::string& text)
@@ -16,21 +18,16 @@ struct MenuItem {
     bool displayId = true;
 };
 
+// Czysci konsole niezaleznie od systemu operacyjnego
 void clearout();
+// Wyswietla komunikat o nacisnieciu Enter i wstrzymuje dalsze dzialanie
 void waitEnter();
-void border();
-std::string formatNumber(long double value);
-
+// Rysuje ramke z tytulem oraz elementami menu
 void showmenu(const std::vector<MenuItem>& items, const std::string& title);
-void showAbout();
-
-void resultTable(const std::string& title,
-                 const std::string& label1, long double v1,
-                 const std::string& label2, long double v2,
-                 const std::string& resultLabel, long double result);
-
-void resultTable(const std::string& title,
-                 const std::string& label1, long double value);
+// Formatuje liczbe zmiennoprzecinkowa usuwajac zbedne zera
+std::string formatNumber(long double value);
+// Rysuje pozioma linie ramki
+void border();
+// Bezpiecznie odczytuje liczbe zmiennoprzecinkowa z konsoli
 
 long double readsafecheck(const std::string& prompt);
-void showAbout();

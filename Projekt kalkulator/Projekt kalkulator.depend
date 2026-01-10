@@ -32,16 +32,17 @@
 	<cmath>
 	<windows.h>
 
-1768056488 source:c:\users\patry\onedrive\dokumenty\github\projekt-kalkulator\projekt kalkulator\ui_format.cpp
+1765147077 source:c:\users\patry\onedrive\dokumenty\github\projekt-kalkulator\projekt kalkulator\ui_format.cpp
 	"ui_format.h"
 	<iostream>
 	<iomanip>
-	<sstream>
-	<cstdlib>
 	<limits>
+	<sstream>
 	<cmath>
+	<cstdlib>
+	<windows.h>
 
-1768056638 c:\users\patry\onedrive\dokumenty\github\projekt-kalkulator\projekt kalkulator\ui_format.h
+1768059339 c:\users\patry\onedrive\dokumenty\github\projekt-kalkulator\projekt kalkulator\ui_format.h
 	<string>
 	<vector>
 
@@ -50,4 +51,17 @@
 	<stdexcept>
 
 1764626342 c:\users\patry\onedrive\dokumenty\github\projekt-kalkulator\projekt kalkulator\calc.h
+
+1768059338 source:c:\users\patry\onedrive\dokumenty\github\projekt-kalkulator\projekt kalkulator\main.cpp
+	<iostream>
+	<cstdlib>
+	<chrono>
+	<thread>
+	<cctype>
+	<iomanip>
+	<string>
+	<sstream>
+	<clocale>
+	"ui_format.h"
+	"calc.h"
 
